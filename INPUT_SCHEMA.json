@@ -1,0 +1,130 @@
+{
+    "title": "LinkedIn Sales Navigator Scraper",
+    "description": "Extrai dados de contatos e empresas do LinkedIn Sales Navigator com alto desempenho e baixo consumo de recursos.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "searchUrl": {
+            "title": "URL de Pesquisa",
+            "type": "string",
+            "description": "URL completa da pesquisa do LinkedIn Sales Navigator. Para pessoas, use uma URL do formato: https://www.linkedin.com/sales/search/people?query=(...)  Para empresas, use uma URL do formato: https://www.linkedin.com/sales/search/company?query=(...)",
+            "editor": "textfield",
+            "prefill": "https://www.linkedin.com/sales/search/people?query=(recentSearchParam:(doLogHistory:true),spellCorrectionEnabled:true,keywords:founder)"
+        },
+        "profileUrls": {
+            "title": "URLs de Perfis",
+            "type": "array",
+            "description": "Lista de URLs de perfis do Sales Navigator para extrair (alternativa à URL de pesquisa)",
+            "editor": "stringList",
+            "prefill": []
+        },
+        "searchType": {
+            "title": "Tipo de Pesquisa",
+            "type": "string",
+            "description": "Tipo de dados a serem extraídos",
+            "enum": ["people", "company"],
+            "enumTitles": ["Pessoas/Leads", "Empresa/Conta"],
+            "default": "people"
+        },
+        "cookies": {
+            "title": "Cookies do LinkedIn",
+            "type": "string",
+            "description": "Cookies da sua sessão do LinkedIn Sales Navigator (formato JSON exportado da extensão EditThisCookie ou similar)",
+            "editor": "textarea"
+        },
+        "maxItems": {
+            "title": "Número Máximo de Itens",
+            "type": "integer",
+            "description": "Número máximo de perfis a serem extraídos (0 = sem limite)",
+            "minimum": 0,
+            "default": 100
+        },
+        "deepSearch": {
+            "title": "Pesquisa Profunda",
+            "type": "boolean",
+            "description": "Ativa a pesquisa profunda, visitando cada perfil para extrair mais informações",
+            "default": false
+        },
+        "enrichData": {
+            "title": "Enriquecer Dados",
+            "type": "boolean",
+            "description": "Enriquece os dados extraídos com informações adicionais como e-mail, telefone, etc.",
+            "default": true
+        },
+        "emailEnrichment": {
+            "title": "Configurações de Enriquecimento de E-mail",
+            "type": "object",
+            "description": "Configurações para o processo de descoberta de e-mails",
+            "editor": "json",
+            "default": {
+                "enabled": true,
+                "methods": ["domainPattern", "socialSearch", "contactApi"],
+                "validateEmails": true,
+                "maxAttemptsPerProfile": 3
+            }
+        },
+        "minDelay": {
+            "title": "Atraso Mínimo",
+            "type": "integer",
+            "description": "Atraso mínimo entre as requisições (em segundos)",
+            "minimum": 1,
+            "default": 5
+        },
+        "maxDelay": {
+            "title": "Atraso Máximo",
+            "type": "integer",
+            "description": "Atraso máximo entre as requisições (em segundos)",
+            "minimum": 1,
+            "default": 15
+        },
+        "maxConcurrency": {
+            "title": "Concorrência Máxima",
+            "type": "integer",
+            "description": "Número máximo de janelas de navegador executando simultaneamente",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 1
+        },
+        "proxy": {
+            "title": "Configuração de Proxy",
+            "type": "object",
+            "description": "Configuração do proxy Apify",
+            "default": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            },
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
+        },
+        "pageTimeout": {
+            "title": "Timeout de Página",
+            "type": "integer",
+            "description": "Tempo máximo (em segundos) para processar uma página",
+            "minimum": 30,
+            "default": 180
+        },
+        "debugMode": {
+            "title": "Modo de Depuração",
+            "type": "boolean",
+            "description": "Ativa o modo de depuração com logs detalhados",
+            "default": false
+        },
+        "outputFormat": {
+            "title": "Formato de Saída",
+            "type": "string",
+            "description": "Formato para exportação dos dados",
+            "enum": ["json", "csv", "xlsx", "all"],
+            "enumTitles": ["JSON", "CSV", "Excel (XLSX)", "Todos os formatos"],
+            "default": "json"
+        },
+        "saveHtml": {
+            "title": "Salvar HTML",
+            "type": "boolean",
+            "description": "Salva o HTML original das páginas para processamento posterior",
+            "default": false
+        }
+    },
+    "required": ["searchType"]
+}
