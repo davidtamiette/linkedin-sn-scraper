@@ -24,7 +24,8 @@
             "description": "Tipo de dados a serem extraídos",
             "enum": ["people", "company"],
             "enumTitles": ["Pessoas/Leads", "Empresa/Conta"],
-            "default": "people"
+            "default": "people",
+            "editor": "select"
         },
         "cookies": {
             "title": "Cookies do LinkedIn",
@@ -37,19 +38,22 @@
             "type": "integer",
             "description": "Número máximo de perfis a serem extraídos (0 = sem limite)",
             "minimum": 0,
-            "default": 100
+            "default": 100,
+            "editor": "number"
         },
         "deepSearch": {
             "title": "Pesquisa Profunda",
             "type": "boolean",
             "description": "Ativa a pesquisa profunda, visitando cada perfil para extrair mais informações",
-            "default": false
+            "default": false,
+            "editor": "checkbox"
         },
         "enrichData": {
             "title": "Enriquecer Dados",
             "type": "boolean",
             "description": "Enriquece os dados extraídos com informações adicionais como e-mail, telefone, etc.",
-            "default": true
+            "default": true,
+            "editor": "checkbox"
         },
         "emailEnrichment": {
             "title": "Configurações de Enriquecimento de E-mail",
@@ -68,14 +72,16 @@
             "type": "integer",
             "description": "Atraso mínimo entre as requisições (em segundos)",
             "minimum": 1,
-            "default": 5
+            "default": 5,
+            "editor": "number"
         },
         "maxDelay": {
             "title": "Atraso Máximo",
             "type": "integer",
             "description": "Atraso máximo entre as requisições (em segundos)",
             "minimum": 1,
-            "default": 15
+            "default": 15,
+            "editor": "number"
         },
         "maxConcurrency": {
             "title": "Concorrência Máxima",
@@ -83,12 +89,14 @@
             "description": "Número máximo de janelas de navegador executando simultaneamente",
             "minimum": 1,
             "maximum": 10,
-            "default": 1
+            "default": 1,
+            "editor": "number"
         },
         "proxy": {
             "title": "Configuração de Proxy",
             "type": "object",
             "description": "Configuração do proxy Apify",
+            "editor": "json",
             "default": {
                 "useApifyProxy": true,
                 "apifyProxyGroups": ["RESIDENTIAL"]
@@ -103,13 +111,15 @@
             "type": "integer",
             "description": "Tempo máximo (em segundos) para processar uma página",
             "minimum": 30,
-            "default": 180
+            "default": 180,
+            "editor": "number"
         },
         "debugMode": {
             "title": "Modo de Depuração",
             "type": "boolean",
             "description": "Ativa o modo de depuração com logs detalhados",
-            "default": false
+            "default": false,
+            "editor": "checkbox"
         },
         "outputFormat": {
             "title": "Formato de Saída",
@@ -117,13 +127,15 @@
             "description": "Formato para exportação dos dados",
             "enum": ["json", "csv", "xlsx", "all"],
             "enumTitles": ["JSON", "CSV", "Excel (XLSX)", "Todos os formatos"],
-            "default": "json"
+            "default": "json",
+            "editor": "select"
         },
         "saveHtml": {
             "title": "Salvar HTML",
             "type": "boolean",
             "description": "Salva o HTML original das páginas para processamento posterior",
-            "default": false
+            "default": false,
+            "editor": "checkbox"
         }
     },
     "required": ["searchType"]
